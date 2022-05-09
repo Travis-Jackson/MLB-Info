@@ -1,0 +1,53 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#buttons {
+    text-align: center;
+}
+
+.team {
+    text-align: center;
+}
+
+.hide {
+    width: 50%;
+    margin: 0 auto;
+    position: absolute;
+}
+
+th {
+    padding-top: 2em;
+}
+
+.hideBtn {
+    background-color: red;
+    color: white;
+    margin-top: 1em;
+}
+
+table {
+    width: 50%;
+    margin: 0 auto;
+}
