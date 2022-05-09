@@ -19,7 +19,6 @@ button.addEventListener("click", () => {
 });
 
 reset.addEventListener("click", () => {
-    season.value = "";
     while (teamDiv.hasChildNodes()) {
         teamDiv.removeChild(teamDiv.firstChild);
     }
