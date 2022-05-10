@@ -233,4 +233,3 @@ async function getRosterData(func, season, teamId, divId) {
 
   func(results, divId);
 }
-// testing testing
