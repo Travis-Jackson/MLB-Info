@@ -49,12 +49,12 @@ button.addEventListener("click", () => {
     season.value == ""
   ) {
 
-    if (!isNaN(Number(season.value))) {
+    if (!isNaN(Number(season.value)) && Number(season.value) >= 1876 && Number(season.value) <= new Date().getFullYear()) {
       // calls the api and displays the response as a list of divs
       getTeamData(showList, season.value);
     } else {
       season.value = "";
-      alert("Please Enter a Year");
+      alert("Please Enter a Valid Year");
     }
 
     // add to search history
