@@ -1,53 +1,115 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
-}
-
-td,
-th {
+    border: 1px none;
+    padding: 10px;
+    box-shadow: 5px 10px 18px #0aa1dd;
+    width: 50vw;
+    margin: 0 auto;
+    margin-bottom: 2em;
+  }
+  
+  td,
+  th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-h1 {
+  }
+  
+  tr:nth-child(even) {
+    background-color: #e8f9fd;
+  }
+  
+  h1 {
     text-align: center;
-}
-
-h2 {
+  }
+  
+  h2 {
     text-align: center;
-}
-
-#buttons {
+  }
+  
+  #buttons {
     text-align: center;
-}
-
-.team {
+  }
+  
+  .team {
     text-align: center;
-}
-
-.hide {
-    width: 50%;
+  }
+  
+  .hide{
+    width: 100%;
     margin: 0 auto;
-    position: absolute;
-}
-
-th {
-    padding-top: 2em;
-}
-
-.hideBtn {
-    background-color: red;
+  }
+  
+  .hideBtn{
+    border-radius: 12px;
+    background-color: #d34848;
     color: white;
-    margin-top: 1em;
-}
-
-table {
-    width: 50%;
-    margin: 0 auto;
-}
+    padding: 0.3em;
+    margin-bottom: 1em;
+  }
+  
+  hr{
+    width: 75%;
+  }
+  
+  .roster-btn{
+    border-radius: 12px;
+    background-color: #5edfff;
+    color: black;
+    padding: 0.5em;
+  }
+  
+  .main-btn{
+    border-radius: 12px;
+    background-color: #d34848;
+    color: white;
+    padding: 0.5em;
+    margin: 0.2em;
+  }
+  
+  #season{
+    padding: 0.3em;
+  }
+  
+  #season-input {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  i{
+    position: relative;
+    left: 50%;
+  }
+  
+  i:hover{
+    color: red;
+  }
+  
+  .bold{
+    font-weight: bold;
+  }
+  
+  #teams{
+    text-align: center;
+  }
+  
+  #search-input{
+    margin-bottom: 2em;
+    text-align: center;
+  }
+  
+  @media only screen and (max-width: 600px){
+    table{
+      width: 90vw;
+    }
+    
+    hr{
+      width: 95%
+    }
+    
+    .hide{
+      width: 95%;
+      margin: 0 auto;
+    }
+  }
