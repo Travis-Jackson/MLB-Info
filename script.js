@@ -46,24 +46,27 @@ button.addEventListener("click", () => {
   if (
     year !== season.value ||
     document.getElementsByClassName("team").length === 0 ||
-    season.value == ""
+    season.value == ""  
   ) {
-
-    if (!isNaN(Number(season.value)) && Number(season.value) >= 1876 && Number(season.value) <= new Date().getFullYear()) {
-      // calls the api and displays the response as a list of divs
+    
+    if(!isNaN(Number(season.value)) && Number(season.value) >= 1876 && Number(season.value) <= new Date().getFullYear()){
+       // calls the api and displays the response as a list of divs
       getTeamData(showList, season.value);
-    } else {
-      season.value = "";
+    }else{
+      yearPre = history[history.length - 1].split(">")[1];
+      year = yearPre.split("<")[0];
+      season.value = year;
+      button.click();
       alert("Please Enter a Valid Year");
     }
 
     // add to search history
     // checking the last item in history to prevent consecutive repeats
-    if (history[history.length - 1] !== `<a href="#">${season.value}</a>` && season.value !== ""
-      && !isNaN(Number(season.value))) {
-      // if not repeated, push item as an anchor tag
+    if (history[history.length - 1] !== `<a href="#">${season.value}</a>` && season.value !== "" 
+        && !isNaN(Number(season.value)))  {
+     // if not repeated, push item as an anchor tag
       history.push(`<a href="#">${season.value}</a>`);
-      // displaying the links in history[]
+     // displaying the links in history[]
       historyPara.innerHTML = history;
     }
     // selecting all the anchor tags and assigning a variable
@@ -71,12 +74,12 @@ button.addEventListener("click", () => {
     for (let i = 0; i < aTags.length; i++) {
       // adding event listener to each anchor tag
       aTags[i].addEventListener("click", () => {
-        // isolating the year
+       // isolating the year
         const yearPre = history[i].split(">")[1];
         const year = yearPre.split("<")[0];
         // assigning the value of the input to the year variable
         season.value = year;
-        // click "Get Teams" button to make api request
+       // click "Get Teams" button to make api request
         button.click();
       });
     }
@@ -91,14 +94,14 @@ reset.addEventListener("click", () => {
 // add event listener to press "Get Teams"
 // button when the user presses enter
 season.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
+  if(event.key === "Enter"){
     button.click();
   }
 })
-
+                        
 // creates elements and displays them
 function showList(array) {
-
+ 
   for (let i = 0; i < array.length; i++) {
     const teamDataDiv = document.createElement("div");
 
@@ -123,7 +126,7 @@ function showList(array) {
     teamDataDiv.appendChild(teamVenue);
     teamDataDiv.appendChild(teamLeague);
     teamDataDiv.appendChild(teamFirstPlayed);
-
+    
     // creating a showRosterButton
     const showRosterButton = document.createElement("button");
     showRosterButton.setAttribute("class", "roster-btn");
@@ -135,9 +138,9 @@ function showList(array) {
     showRosterButton.addEventListener("click", () => {
       // isolating teamId from the teamDataDiv.id
       const teamId = teamDataDiv.id.split("-")[1];
-
+      
       showRosterButton.disabled = true;
-
+      
       // prevent the same team roster being displayed more than once
       if (document.getElementById(teamDataDiv.id + "-table") !== null) {
         return;
@@ -174,26 +177,26 @@ async function getTeamData(func, season) {
 function showRoster(array, divId) {
   // selecting the parentDiv aka teamDiv
   const parentDiv = document.getElementById(divId);
-
+  
   // created a div to place button inside of for css styling
   const hbDiv = document.createElement("div");
   hbDiv.setAttribute("class", "hide");
   parentDiv.appendChild(hbDiv);
-
+  
   // create table
   const rosterTable = document.createElement("table");
   // providing an id for each table
   rosterTable.setAttribute("id", divId + "-table");
-
+ 
   // append the rosterTable to it's parent div
   parentDiv.appendChild(rosterTable);
-
+ 
   // created button to remove the roster table
   const hideTableButton = document.createElement("button");
   hideTableButton.setAttribute("class", "hideBtn");
   hideTableButton.innerText = "Hide Table";
   hbDiv.appendChild(hideTableButton);
-
+  
   // removing the elements inside of the table
   hideTableButton.addEventListener("click", () => {
     while (rosterTable.hasChildNodes()) {
@@ -202,9 +205,9 @@ function showRoster(array, divId) {
     // removing the table
     rosterTable.remove();
     hideTableButton.remove();
-
+  
     // re-enabling the disabled button 
-    document.getElementById("btn-" + divId.split("-")[1]).disabled = false;
+   document.getElementById("btn-" + divId.split("-")[1]).disabled = false;
   });
   // creating table elements and assigning the data
   const tableHeaderRow = document.createElement("tr");
@@ -220,7 +223,7 @@ function showRoster(array, divId) {
   tableHeaderRow.appendChild(numberHeader);
   tableHeaderRow.appendChild(nameHeader);
   tableHeaderRow.appendChild(positionHeader);
-
+ 
   // creating individual row of players
   for (let i = 0; i < array.length; i++) {
     const playerRow = document.createElement("tr");
@@ -228,25 +231,25 @@ function showRoster(array, divId) {
 
     const numberTd = document.createElement("td");
     numberTd.innerText = array[i]["jersey_number"];
-
+    
     const nameTd = document.createElement("td");
     nameTd.innerText = array[i]["name_first_last"];
-
+   
     const positionTd = document.createElement("td");
     positionTd.innerText = array[i]["position_desig"].charAt(0) + array[i]["position_desig"].substring(1).toLowerCase();
-
+    
     const buttonTd = document.createElement("td");
     const icon = document.createElement("i");
     icon.setAttribute("class", "fa-solid fa-info")
     buttonTd.appendChild(icon);
-    // select the button that opens modal
+   // select the button that opens modal
     const playerInfoButton = document.getElementById("modal-btn");
     // add event listener to the icon to open the modal
     icon.addEventListener("click", () => {
       getPlayerInfo(array[i]["player_id"]);
       playerInfoButton.click();
     })
-
+    
     playerRow.appendChild(numberTd);
     playerRow.appendChild(nameTd);
     playerRow.appendChild(positionTd);
@@ -255,13 +258,13 @@ function showRoster(array, divId) {
 }
 // make an AJAX request to the api, then display roster by calling showRoster
 async function getRosterData(func, season, teamId, divId) {
-
+  
   const url = `https://lookup-service-prod.mlb.com/json/named.roster_team_alltime.bam?start_season=${season}&end_season=${season}&team_id=${teamId}`;
   const response = await fetch(url, { method: "GET" });
   const data = await response.json();
   const results = data["roster_team_alltime"]["queryResults"]["row"];
   console.log(results);
-
+  
   if (results === undefined) {
     alert("Roster Not Available");
   }
@@ -270,41 +273,41 @@ async function getRosterData(func, season, teamId, divId) {
 }
 
 // make an AJAX call and create a paragraph filled with player info, then display in modal
-async function getPlayerInfo(playerId) {
-
+async function getPlayerInfo(playerId){
+  
   const url = `https://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id=${playerId}`
   const response = await fetch(url, { method: "GET" });
   const data = await response.json();
   const player = data["player_info"]["queryResults"]["row"];
-
+  
   console.log(player);
-
+  
   // select modal body
   const modalBody = document.getElementsByClassName("modal-body")[0];
-  if (modalBody.hasChildNodes()) {
+  if(modalBody.hasChildNodes()){
     modalBody.removeChild(modalBody.firstChild);
   }
-
+  
   let playerNum = player["jersey_number"];
-  if (playerNum !== "") {
+  if(playerNum !== ""){
     playerNum = "<span class= 'bold'>#" + playerNum + "</span>";
   }
-
+  
   // set title to player name
   const playerName = document.getElementById("exampleModalLabel");
-  playerName.innerHTML =
+  playerName.innerHTML = 
     player["name_display_first_last"] + "&emsp;&emsp;&emsp;" + playerNum;
-
+  
   // create paragraph
   const paragraph = document.createElement("p");
-
+  
   // use span tags to set css to bold
   paragraph.innerHTML =
     "<span class= 'bold'>Team: </span>" +
-    player["team_name"] +
-    "<br/><span class= 'bold'>Country:</span> " +
-    player["birth_country"] +
-    " <span class='bold'>Birth Date:</span> " +
+    player["team_name"]+
+    "<br/><span class= 'bold'>Country:</span> " + 
+    player["birth_country"] + 
+    " <span class='bold'>Birth Date:</span> " + 
     player["birth_date"].split("T")[0] +
     "<br/><span class= 'bold'>Throw:</span> " +
     player["throws"] +
@@ -312,7 +315,7 @@ async function getPlayerInfo(playerId) {
     player["bats"] +
     "<br/><span class='bold'>Pro Debut:</span> " +
     player["pro_debut_date"].split("T")[0];
-
+  
   modalBody.appendChild(paragraph);
 }
 
