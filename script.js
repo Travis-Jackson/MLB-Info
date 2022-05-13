@@ -303,7 +303,7 @@ async function getPlayerInfo(playerId){
   
   // use span tags to set css to bold
   paragraph.innerHTML =
-    "<span class= 'bold'>Team: </span>" +
+    "<span class= 'bold'>Last/Current Team: </span>" +
     player["team_name"]+
     "<br/><span class= 'bold'>Country:</span> " + 
     player["birth_country"] + 
