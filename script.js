@@ -286,17 +286,17 @@ async function getPlayerInfo(playerId) {
     modalBody.removeChild(modalBody.firstChild);
   }
 
-  let playerNum = player["jersey_number"];
-  if (playerNum !== "") {
-    playerNum = "<span class= 'bold'>#" + playerNum + "</span>";
-  }
-
   const url = `https://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id=${playerId}`;
   const response = await fetch(url, { method: "GET" });
   const data = await response.json();
   const player = data["player_info"]["queryResults"]["row"];
 
   console.log(player);
+
+  let playerNum = player["jersey_number"];
+  if (playerNum !== "") {
+    playerNum = "<span class= 'bold'>#" + playerNum + "</span>";
+  }
 
   // set title to player name
   const playerName = document.getElementById("exampleModalLabel");
